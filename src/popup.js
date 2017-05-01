@@ -2,11 +2,20 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 
 class PopUp extends React.Component {
+	goToUrl(dest) {
+		chrome.tabs.create({ url: dest });
+	}
 	render() {
+		const recipe = this.props.data;
+
 		return (
-			<div className="card">
-				{JSON.stringify(this.props.data)}
-			</div>
+			<a className="card" onClick={() => this.goToUrl(recipe.url)}>
+				<div className="card__media">
+					<img className="card__image" src={recipe.image} />
+				</div>
+				<h2>{recipe.title}</h2>
+				<p>{recipe.description}</p>
+			</a>
 		);
 	}
 }

@@ -9539,38 +9539,63 @@ var React = __webpack_require__(81);
 var ReactDOM = __webpack_require__(80);
 
 var PopUp = function (_React$Component) {
-    _inherits(PopUp, _React$Component);
+	_inherits(PopUp, _React$Component);
 
-    function PopUp() {
-        _classCallCheck(this, PopUp);
+	function PopUp() {
+		_classCallCheck(this, PopUp);
 
-        return _possibleConstructorReturn(this, (PopUp.__proto__ || Object.getPrototypeOf(PopUp)).apply(this, arguments));
-    }
+		return _possibleConstructorReturn(this, (PopUp.__proto__ || Object.getPrototypeOf(PopUp)).apply(this, arguments));
+	}
 
-    _createClass(PopUp, [{
-        key: 'render',
-        value: function render() {
-            return React.createElement(
-                'div',
-                { className: 'card' },
-                JSON.stringify(this.props.data)
-            );
-        }
-    }]);
+	_createClass(PopUp, [{
+		key: 'goToUrl',
+		value: function goToUrl(dest) {
+			chrome.tabs.create({ url: dest });
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var _this2 = this;
 
-    return PopUp;
+			var recipe = this.props.data;
+
+			return React.createElement(
+				'a',
+				{ className: 'card', onClick: function onClick() {
+						return _this2.goToUrl(recipe.url);
+					} },
+				React.createElement(
+					'div',
+					{ className: 'card__media' },
+					React.createElement('img', { className: 'card__image', src: recipe.image })
+				),
+				React.createElement(
+					'h2',
+					null,
+					recipe.title
+				),
+				React.createElement(
+					'p',
+					null,
+					recipe.description
+				)
+			);
+		}
+	}]);
+
+	return PopUp;
 }(React.Component);
 
 document.addEventListener('DOMContentLoaded', function () {
-    chrome.tabs.executeScript(null, {
-        file: "getActiveTab.bundle.js"
-    });
+	chrome.tabs.executeScript(null, {
+		file: "getActiveTab.bundle.js"
+	});
 });
 
 chrome.runtime.onMessage.addListener(function (request, sender) {
-    if (request.action == "getActiveTab") {
-        ReactDOM.render(React.createElement(PopUp, { data: request.source }), document.getElementById('main'));
-    }
+	if (request.action == "getActiveTab") {
+		ReactDOM.render(React.createElement(PopUp, { data: request.source }), document.getElementById('main'));
+	}
 });
 
 /***/ }),

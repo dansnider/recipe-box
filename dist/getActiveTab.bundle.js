@@ -75,19 +75,54 @@
 
 
 function getActiveTab(document) {
-    var pageData = {};
+	var pageData = {};
 
-    pageData.title = document.head.querySelector('title').innerText;
-    pageData.description = document.head.querySelector("meta[property='og:description']").content || "";
-    pageData.url = window.location.href;
-    pageData.image = document.head.querySelector("meta[property='og:image']") || "";
+	pageData.docType = document.head.querySelector("meta[property='og:type']").content || "";
+	pageData.title = document.head.querySelector("meta[property='og:title']").content || document.head.querySelector('title').innerText;
+	pageData.description = document.head.querySelector("meta[property='og:description']").content || "";
+	pageData.url = window.location.href;
+	pageData.image = getMainImageUrl(document);
 
-    return pageData;
+	return pageData;
+}
+
+function getMainImageUrl(document) {
+	var img = document.querySelectorAll('img');
+	var twitterImage = document.head.querySelector("meta[name='twitter:image']");
+	var ogImage = document.head.querySelector("meta[property='og:image]");
+	var images = [];
+
+	// social images are good results
+	if (twitterImage) {
+		return twitterImage.content;
+	} else if (ogImage) {
+		return ogImage.content;
+	}
+
+	// return src of largest image
+	if (img.length) {
+
+		img.forEach(function (image) {
+			image.area = image.width * image.height;
+
+			if (image.area > 16 * 16) {
+				images.push(image);
+			}
+		});
+
+		images.sort(function (a, b) {
+			return b.area - a.area;
+		});
+
+		return images[0].src;
+	} else {
+		return "";
+	}
 }
 
 chrome.runtime.sendMessage({
-    action: "getActiveTab",
-    source: getActiveTab(document)
+	action: "getActiveTab",
+	source: getActiveTab(document)
 });
 
 /***/ })
