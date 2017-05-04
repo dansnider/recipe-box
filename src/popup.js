@@ -1,3 +1,4 @@
+import './hello.scss';
 var React = require('react');
 var ReactDOM = require('react-dom');
 

@@ -63,12 +63,12 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 82);
+/******/ 	return __webpack_require__(__webpack_require__.s = 83);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 82:
+/***/ 83:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -77,13 +77,31 @@
 function getActiveTab(document) {
 	var pageData = {};
 
-	pageData.docType = document.head.querySelector("meta[property='og:type']").content || "";
+	pageData.isRecipe = checkIfRecipe(document);
 	pageData.title = document.head.querySelector("meta[property='og:title']").content || document.head.querySelector('title').innerText;
 	pageData.description = document.head.querySelector("meta[property='og:description']").content || "";
 	pageData.url = window.location.href;
 	pageData.image = getMainImageUrl(document);
 
 	return pageData;
+}
+
+function checkIfRecipe(document) {
+	var pageType = document.head.querySelector("meta[property='og:type']");
+
+	if (pageType != null && pageType != "article") {
+		return false;
+	}
+
+	if (contains('recipe') || contains('ingredients')) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function contains(string) {
+	return document.body.innerText.indexOf(string) > -1;
 }
 
 function getMainImageUrl(document) {

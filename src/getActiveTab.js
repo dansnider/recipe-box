@@ -2,13 +2,31 @@
 function getActiveTab(document) {
     let pageData = {};
 
-    pageData.docType = document.head.querySelector("meta[property='og:type']").content || "";
+    pageData.isRecipe = checkIfRecipe(document);
     pageData.title = document.head.querySelector("meta[property='og:title']").content || document.head.querySelector('title').innerText;
     pageData.description = document.head.querySelector("meta[property='og:description']").content || "";
     pageData.url = window.location.href;
     pageData.image = getMainImageUrl(document);
 
     return pageData;
+}
+
+function checkIfRecipe(document) {
+	const pageType = document.head.querySelector("meta[property='og:type']");
+
+	if (pageType != null && pageType != "article") {
+		return false;
+	}
+
+	if (contains('recipe') || contains('ingredients')) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function contains(string) {
+    return document.body.innerText.indexOf(string) > -1;
 }
 
 function getMainImageUrl(document) {
@@ -43,8 +61,8 @@ function getMainImageUrl(document) {
 	} else {
 		return "";
 	}
-
 }
+
 
 chrome.runtime.sendMessage({
     action: "getActiveTab",
