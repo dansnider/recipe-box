@@ -1,22 +1,83 @@
+// start out with displaying all recipes
+// big button on top to add. onclick, open modal with current tab's recipe in there
+// 
+
 import './hello.scss';
 var React = require('react');
 var ReactDOM = require('react-dom');
 
 class PopUp extends React.Component {
-	goToUrl(dest) {
-		chrome.tabs.create({ url: dest });
+	constructor() {
+		super();
+
+		this.toggleModal = this.toggleModal.bind(this);
+		this.saveRecipe = this.saveRecipe.bind(this);
+		this.state = {
+			modalDisplayed: false
+		}
 	}
+
+	toggleModal(e) {
+		e.preventDefault();
+		this.setState({
+			modalDisplayed: true
+		})
+	}
+
+	saveRecipe(e) {
+		e.preventDefault();
+		debugger;
+		storeRecipe(this.props.data);
+	}
+
 	render() {
 		const recipe = this.props.data;
 
 		return (
-			<a className="card" onClick={() => this.goToUrl(recipe.url)}>
+			<div className="pop-up">
+				<SaveButton clickHandler={this.state.modalDisplayed ? this.saveRecipe : this.toggleModal } />
+				<Modal isDisplayed={this.state.modalDisplayed} recipe={recipe}/>
+			</div>
+		);
+	}
+}
+
+class Modal extends React.Component {
+	render() {
+		return (
+			<div className={'modal ' + (this.props.isDisplayed ? 'is-displayed' : '')}>
+				<Card recipe={this.props.recipe} />
+			</div>
+		);
+	}
+}
+
+class Card extends React.Component {
+	goToUrl(dest) {
+		chrome.tabs.create({ url: dest });
+	}
+
+	render() {
+		const recipe = this.props.recipe;
+
+		return (
+			<a className="card" href="#" onClick={() => this.goToUrl(recipe.url)}>
 				<div className="card__media">
 					<img className="card__image" src={recipe.image} />
 				</div>
-				<h2>{recipe.title}</h2>
-				<p>{recipe.description}</p>
+				<div className="card__content">
+					<h2 className="card__title">{recipe.title}</h2>
+					<p className="card__description">{recipe.description}</p>
+				</div>
 			</a>
+		);
+	}
+}
+
+class SaveButton extends React.Component {
+	render() {
+		return (
+			<button className="button--save" onClick={this.props.clickHandler}>Save Current Tab</button>
 		);
 	}
 }
@@ -35,3 +96,16 @@ chrome.runtime.onMessage.addListener(function(request, sender) {
         );
     }
 });
+
+function storeRecipe(data) {
+	var recipe = {};
+	recipe[data.url] = data;
+
+	chrome.storage.sync.set(recipe, ()=> {
+		console.log('success')
+	});
+}
+
+function clearStorage() {
+	chrome.storage.sync.clear();
+}

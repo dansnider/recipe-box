@@ -1,7 +1,20 @@
-body {
-	background: red;
+.modal {
+	display: none;
+}
 
-	h1 {
-		background: blue;
-	}
+.is-displayed {
+	display: block;
+}
+
+.card {
+	display: flex;
+}
+
+.card__media {
+	max-width: 50%;
+	height: auto;
+}
+
+.card__image {
+	width: 100%;
 }

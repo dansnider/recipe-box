@@ -89,7 +89,7 @@ function getActiveTab(document) {
 function checkIfRecipe(document) {
 	var pageType = document.head.querySelector("meta[property='og:type']");
 
-	if (pageType != null && pageType != "article") {
+	if (pageType != null && pageType.content != "article") {
 		return false;
 	}
 
