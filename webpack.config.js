@@ -5,7 +5,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
     context: path.resolve(__dirname, './src'),
     entry: {
-        popup: './popup.js',
+        app: './app.js',
         getActiveTab: './getActiveTab.js'
     },
     output: {
@@ -32,5 +32,8 @@ module.exports = {
     },
     plugins: [
         new ExtractTextPlugin('styles.css'),
+        new webpack.ProvidePlugin({
+            "React": "react",
+        })
     ]
 };

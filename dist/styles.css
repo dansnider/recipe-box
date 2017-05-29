@@ -1,4 +1,21 @@
+button {
+  background: green;
+  padding: 1rem;
+  border: none; }
+.card {
+  display: flex; }
+
+.card__media {
+  max-width: 50%;
+  height: auto; }
+
+.card__image {
+  width: 100%; }
+.modal {
+  display: none; }
+
+.is-displayed {
+  display: block; }
 body {
-  background: red; }
-  body h1 {
-    background: blue; }
+  min-width: 300px;
+  min-height: 300px; }
