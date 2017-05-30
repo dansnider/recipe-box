@@ -3,7 +3,7 @@ var ReactDOM = require('react-dom');
 
 import PopUp from './components/popup/popup.js'
 
-import './base.scss';
+import './css/base.scss';
 
 document.addEventListener('DOMContentLoaded', function() {
     chrome.tabs.executeScript(null, {

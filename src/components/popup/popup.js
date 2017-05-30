@@ -23,7 +23,6 @@ class PopUp extends React.Component {
 
 	saveRecipe(e) {
 		e.preventDefault();
-		debugger;
 		storeRecipe(this.props.data);
 	}
 

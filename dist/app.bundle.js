@@ -9568,7 +9568,6 @@ var PopUp = function (_React$Component) {
 		key: 'saveRecipe',
 		value: function saveRecipe(e) {
 			e.preventDefault();
-			debugger;
 			storeRecipe(this.props.data);
 		}
 	}, {

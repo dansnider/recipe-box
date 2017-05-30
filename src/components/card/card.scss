@@ -1,5 +1,11 @@
+@import "../../css/variables";
+
 .card {
 	display: flex;
+	margin-top: 1rem;
+	text-decoration: none;
+	color: black;
+	font-family: $font-primary;
 }
 
 .card__media {
@@ -9,4 +15,12 @@
 
 .card__image {
 	width: 100%;
+}
+
+.card__content {
+	padding: .625rem;
+}
+
+.card__title {
+	margin-bottom: .625rem;
 }

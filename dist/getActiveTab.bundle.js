@@ -78,10 +78,10 @@ function getActiveTab(document) {
 	var pageData = {};
 
 	pageData.isRecipe = checkIfRecipe(document);
-	pageData.title = document.head.querySelector("meta[property='og:title']").content || document.head.querySelector('title').innerText;
-	pageData.description = document.head.querySelector("meta[property='og:description']").content || "";
 	pageData.url = window.location.href;
 	pageData.image = getMainImageUrl(document);
+	pageData.title = document.head.querySelector("meta[property='og:title']") != null ? document.head.querySelector("meta[property='og:title']").content : document.head.querySelector('title').innerText;
+	pageData.description = document.head.querySelector("meta[property='og:description']") != null ? document.head.querySelector("meta[property='og:description']").content : "";
 
 	return pageData;
 }
