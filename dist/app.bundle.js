@@ -9578,7 +9578,15 @@ var PopUp = function (_React$Component) {
 			return React.createElement(
 				'div',
 				{ className: 'pop-up' },
-				React.createElement(_button2.default, { clickHandler: this.state.modalDisplayed ? this.saveRecipe : this.toggleModal }),
+				React.createElement(
+					'div',
+					{ className: 'pop-up__header' },
+					React.createElement(_button2.default, {
+						clickHandler: this.state.modalDisplayed ? this.saveRecipe : this.toggleModal,
+						text: this.state.modalDisplayed ? 'Go For It!' : 'Save Current Tab'
+					})
+				),
+				React.createElement('div', { className: 'pop-up__body' }),
 				React.createElement(_modal2.default, { isDisplayed: this.state.modalDisplayed, recipe: recipe })
 			);
 		}
@@ -9685,7 +9693,7 @@ var SaveButton = function (_React$Component) {
 			return React.createElement(
 				"button",
 				{ className: "button--save", onClick: this.props.clickHandler },
-				"Save Current Tab"
+				this.props.text
 			);
 		}
 	}]);

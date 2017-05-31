@@ -31,7 +31,15 @@ class PopUp extends React.Component {
 
 		return (
 			<div className="pop-up">
-				<SaveButton clickHandler={this.state.modalDisplayed ? this.saveRecipe : this.toggleModal } />
+				<div className="pop-up__header">
+					<SaveButton 
+						clickHandler={this.state.modalDisplayed ? this.saveRecipe : this.toggleModal}
+						text={this.state.modalDisplayed ? 'Go For It!' : 'Save Current Tab'}
+					/>
+				</div>
+				<div className="pop-up__body">
+					
+				</div>
 				<Modal isDisplayed={this.state.modalDisplayed} recipe={recipe}/>
 			</div>
 		);

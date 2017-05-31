@@ -1,0 +1,14 @@
+@import "../../css/variables";
+
+.pop-up {
+	padding: $padding;
+}
+
+.pop-up__header {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 3rem;
+	margin-bottom: $padding;
+}

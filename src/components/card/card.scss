@@ -2,9 +2,13 @@
 
 .card {
 	display: flex;
-	margin-top: 1rem;
+	position: relative;
+	margin-bottom: $padding;
 	text-decoration: none;
 	color: black;
+	cursor: pointer;
+	border-bottom: 1px solid black;
+	border-right: 1px solid black;
 }
 
 .card__media {
@@ -12,14 +16,14 @@
 	height: auto;
 }
 
+.card__content {
+	padding: 0 $padding $padding $padding;
+}
+
 .card__image {
 	width: 100%;
 }
 
-.card__content {
-	padding: .625rem;
-}
-
 .card__title {
-	margin-bottom: .625rem;
+	margin-bottom: $padding;
 }

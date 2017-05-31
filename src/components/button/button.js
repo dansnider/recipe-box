@@ -3,7 +3,7 @@ import './button.scss';
 class SaveButton extends React.Component {
 	render() {
 		return (
-			<button className="button--save" onClick={this.props.clickHandler}>Save Current Tab</button>
+			<button className="button--save" onClick={this.props.clickHandler}>{this.props.text}</button>
 		);
 	}
 }
